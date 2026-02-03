@@ -8,6 +8,7 @@
 A full-stack stock management solution featuring an Angular frontend, a .NET 8 Web API backend, and a PostgreSQL database, all orchestrated with Docker Compose.
 
 ![Stock Management App](../StockManagementApp/social-preview.png)
+
 ---
 
 ## 📂 Project Structure
