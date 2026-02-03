@@ -1,0 +1,10 @@
+<div class="stat-card" [class.alert]="isAlert">
+    <span class="label">{{ label }}</span>
+    <div class="value-container">
+        <span class="value">{{ value }}</span>
+        <span *ngIf="trend" class="trend" [class.positive]="trend > 0">
+          {{ trend > 0 ? '+' : '' }}{{ trend }}%
+        </span>
+    </div>
+    <ng-content></ng-content> 
+</div>

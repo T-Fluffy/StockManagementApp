@@ -1,7 +1,8 @@
 public enum ProductCategory
 {
-    SocialGames,      // rami, chkoba, etc.
-    Consumables,      // drinks, food, charcoal
-    Furniture,        // tables, chairs
-    Electronics       // TV
+    Furniture,      // Tables, Chairs
+    Equipment,      // Chicha, TVs
+    Games,          // Rami, Chkoba, Domino
+    Consumables,    // Drinks, Food
+    Supplies        // Charcoal, Napkins
 }

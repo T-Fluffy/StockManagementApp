@@ -1,0 +1,12 @@
+.app-layout {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* Takes at least the full screen height */
+    }
+
+    .main-content {
+      flex: 1; /* Grows to fill available space, pushing footer down */
+      padding: 2rem;
+      /* Add padding-bottom so content doesn't touch the footer */
+      padding-bottom: 4rem; 
+    }

@@ -1,0 +1,30 @@
+<header class="app-header">
+  <div class="header-left">
+    <div class="logo">
+      <div class="logo-box">S</div>
+      <span class="logo-text">StockPro <small>v1.0</small></span>
+    </div>
+    
+    <nav class="main-nav">
+      <a routerLink="/dashboard" routerLinkActive="active">Tableau de Bord</a>
+      <a routerLink="/products" routerLinkActive="active">Inventaire</a>
+      <a routerLink="/suppliers" routerLinkActive="active">Fournisseurs</a>
+    </nav>
+  </div>
+
+  <div class="header-right">
+    <div class="info-group">
+      <span class="date">{{ currentDate | date:'fullDate':'':'fr-FR' }}</span>
+      <div class="status-indicator">
+        <span class="dot"></span> Système Connecté
+      </div>
+    </div>
+    
+    <app-system-notif [count]="unreadCount"></app-system-notif>
+    
+    <div class="user-pill">
+      <div class="avatar">{{ userName.charAt(0) }}</div>
+      <span class="name">{{ userName }}</span>
+    </div>
+  </div>
+</header>

@@ -13,7 +13,6 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-    # Mapping the volume so your data survives a restart
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -32,6 +31,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    # Adding volume here allows hot-reload for .NET if using 'dotnet watch'
+    volumes:
+      - ./backend:/app
+      - /app/bin
+      - /app/obj
     networks:
       - stock-network
 
@@ -41,9 +45,13 @@ services:
       dockerfile: Dockerfile
     container_name: stock_frontend
     ports:
-      - "4200:80"
-    depends_on:
-      - backend
+      - "4200:4200" # Changed from 80 to 4200 for the Dev Server
+    # THE MAGIC PART:
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    # We change the command to run the dev server instead of Nginx
+    command: npx ng serve --host 0.0.0.0 --poll 2000
     networks:
       - stock-network
 
@@ -51,6 +59,5 @@ networks:
   stock-network:
     driver: bridge
 
-# Defined named volume for persistence
 volumes:
   postgres_data:

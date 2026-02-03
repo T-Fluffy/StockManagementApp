@@ -1,0 +1,67 @@
+<div class="page-header">
+  <h1>📦 Gestion de l'Inventaire</h1>
+  <p class="subtitle">Suivez vos stocks entrant, sortant et vos marges bénéficiaires.</p>
+</div>
+
+<app-card title="Liste des Produits" [noPadding]="true">
+  
+  <div header-actions class="card-toolbar">
+    <div class="filter-tabs">
+      <button class="tab active">Tous</button>
+      <button class="tab">Mobilier</button>
+      <button class="tab">Consommation</button>
+      <button class="tab">Jeux</button>
+    </div>
+    <app-button variant="primary" (onClick)="isModalOpen = true">
+      ➕ Nouveau Produit
+    </app-button>
+  </div>
+
+  <table class="modern-table">
+    <thead>
+      <tr>
+        <th>Nom du Produit</th>
+        <th>Catégorie</th>
+        <th>État du Stock</th>
+        <th>Status</th>
+        <th>Bénéfice Unitaire</th>
+        <th style="text-align: right;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of products" [class.critical]="p.currentStock <= p.miniStock">
+        <td><strong>{{ p.name }}</strong></td>
+        <td><span class="badge">{{ p.category }}</span></td>
+        <td>
+          <div class="stock-info">
+            <span class="current">{{ p.currentStock }}</span>
+            <span class="separator">/</span>
+            <span class="max">{{ p.maxStock }}</span>
+          </div>
+        </td>
+        <td>
+          <span *ngIf="p.currentStock <= p.miniStock" class="status-alert">⚠️ Stock Mini !</span>
+          <span *ngIf="p.currentStock > p.miniStock" class="status-ok">✅ Stock OK</span>
+        </td>
+        <td>
+          <span class="price-tag">{{ p.sellingPrice - p.purchasePrice | number:'1.3-3' }} DT</span>
+        </td>
+        <td style="text-align: right;">
+          <app-button variant="outline" (onClick)="manageProduct(p)">Gérer</app-button>
+        </td>
+      </tr>
+      
+      <tr *ngIf="products.length === 0">
+        <td colspan="6" class="empty-state">
+          <p>Aucun produit trouvé. Cliquez sur "Nouveau Produit" pour commencer.</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</app-card>
+
+<app-product-form 
+  *ngIf="isModalOpen" 
+  (onClose)="isModalOpen = false" 
+  (onSave)="handleSave($event)">
+</app-product-form>

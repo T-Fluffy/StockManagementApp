@@ -1,0 +1,32 @@
+<div class="dashboard-container">
+  <header class="dashboard-header">
+    <h1>Tableau de Bord Analytique</h1>
+    <p>Suivi en temps réel de votre établissement</p>
+  </header>
+
+  <div class="stats-grid">
+    <app-stat-card 
+      label="Recette Journalière" 
+      value="450.000 DT" 
+      [trend]="12">
+    </app-stat-card>
+
+    <app-stat-card 
+      label="Alertes Stock" 
+      value="8 Produits" 
+      [isAlert]="true">
+      <app-button class="action-btn">Voir les détails</app-button>
+    </app-stat-card>
+
+    <app-stat-card 
+      label="Dépenses Fournisseurs (Mois)" 
+      value="1,200.000 DT">
+    </app-stat-card>
+  </div>
+
+  <div class="main-grid">
+    <app-card title="Top Ventes (%)">
+      <app-top-sales [data]="topSalesData"></app-top-sales>
+    </app-card>
+  </div>
+</div>

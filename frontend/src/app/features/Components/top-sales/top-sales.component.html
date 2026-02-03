@@ -1,0 +1,11 @@
+<div class="sales-list">
+      <div class="sale-item" *ngFor="let item of data">
+        <div class="item-info">
+          <span>{{ item.name }}</span>
+          <span>{{ item.percentage }}%</span>
+        </div>
+        <div class="progress-container">
+          <div class="progress-fill" [style.width.%]="item.percentage"></div>
+        </div>
+      </div>
+</div>

@@ -1,0 +1,32 @@
+.app-footer {
+  background: var(--card-bg);
+  border-top: 1px solid #e2e8f0;
+  padding: 1rem 0;
+  width: 100%;
+  /* Remove position: fixed and bottom: 0 */
+  
+  .footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #64748b;
+    font-size: 0.85rem;
+  }
+  .footer-links {
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.dev-name {
+  color: #4f46e5;
+  font-weight: 700;
+}

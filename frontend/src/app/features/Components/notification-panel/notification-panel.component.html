@@ -1,0 +1,14 @@
+<div class="notif-container">
+      <div *ngFor="let n of notifications; let i = index" 
+           [class]="'notif-item ' + n.type">
+        <span class="icon">{{ getIcon(n.type) }}</span>
+        <div class="content">
+          <p class="message">{{ n.message }}</p>
+          <small class="time">{{ n.time }}</small>
+        </div>
+        <button class="dismiss" (click)="dismiss(i)">×</button>
+      </div>
+      <div *ngIf="notifications.length === 0" class="empty-state">
+        Aucune alerte pour le moment.
+      </div>
+</div>
