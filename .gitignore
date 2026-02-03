@@ -1,0 +1,23 @@
+# .NET Core
+**/bin/
+**/obj/
+**/out/
+*.user
+*.userosscache
+*.sln.docuser
+
+# Node / Angular
+**/node_modules/
+**/dist/
+**/.angular/
+**/tmp/
+
+# Docker
+.data/
+postgres_data/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.DS_Store
