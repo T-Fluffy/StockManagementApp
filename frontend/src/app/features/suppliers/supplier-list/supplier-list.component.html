@@ -1,7 +1,67 @@
-<div class="card">
-      <h2>Liste des Fournisseurs</h2>
-      <p style="color: var(--secondary);">Gestion des contacts et types de produits fournis.</p>
-      <div style="padding: 2rem; text-align: center; border: 2px dashed #e2e8f0; border-radius: 8px; margin-top: 1rem;">
-        Fonctionnalité de gestion des fournisseurs en cours de développement...
-      </div>
+<div class="container">
+  <div class="header-actions">
+    <div>
+      <h1 class="page-title">Gestion des Fournisseurs</h1>
+      <p class="page-subtitle">Suivez vos partenaires et l'état des dettes.</p>
     </div>
+    <app-button class="btn-primary" (click)="openCreateSupplier()">
+      ➕ Nouveau Fournisseur
+    </app-button>
+  </div>
+
+  <div class="card">
+    <div class="table-container">
+      <table class="app-table" *ngIf="suppliers.length > 0; else noData">
+        <thead>
+          <tr>
+            <th>Entreprise</th>
+            <th>Type</th>
+            <th>Contact</th>
+            <th>Dette Totale</th>
+            <th class="text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of suppliers">
+            <td>
+              <div class="company-info">
+                <span class="avatar">{{ s.companyName.charAt(0) }}</span>
+                <div>
+                  <div class="company-name">{{ s.companyName }}</div>
+                  <div class="company-email">{{ s.contactEmail }}</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="badge">{{ s.providedProductType }}</span></td>
+            <td>{{ s.phoneNumber }}</td>
+            <td>
+              <div class="debt-amount" [class.danger]="(s.totalRemainingDebt ?? 0) > 0">
+                {{ s.totalRemainingDebt | number:'1.2-2' }} DT
+              </div>
+            </td>
+            <td class="text-right">
+              <app-button class="btn-icon" (click)="openAddBill(s)" title="Ajouter Facture">➕</app-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #noData>
+      <div class="empty-state">
+        <div class="empty-icon">🏢</div>
+        <h3>Aucun fournisseur</h3>
+        <p>Commencez par ajouter un partenaire.</p>
+        <app-button class="btn-secondary" (click)="openCreateSupplier()">Ajouter</app-button>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<app-add-bill-modal 
+  *ngIf="selectedSupplier" 
+  [supplierId]="selectedSupplier.id!" 
+  [supplierName]="selectedSupplier.companyName"
+  (close)="selectedSupplier = null"
+  (billAdded)="onBillAdded()">
+</app-add-bill-modal>

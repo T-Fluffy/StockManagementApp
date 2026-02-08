@@ -11,7 +11,7 @@ export const routes: Routes = [
     loadComponent: () => import('./features/products/product-list/product-list.component').then(m => m.ProductListComponent) 
   },
   { 
-    path: 'suppliers', 
-    loadComponent: () => import('./features/suppliers/supplier-list/supplier-list.component').then(m => m.SupplierListComponent) 
+    path: 'suppliers',
+    loadComponent: () => import('./features/suppliers/supplier-list/supplier-list.component').then(m => m.SuppliersListComponent) // <--- Added the 's'
   }
 ];

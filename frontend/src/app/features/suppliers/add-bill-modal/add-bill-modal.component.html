@@ -1,0 +1,42 @@
+<div class="modal-backdrop" (click)="close.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Ajouter une Facture - {{ supplierName }}</h3>
+      <button class="close-btn" (click)="close.emit()">&times;</button>
+    </div>
+
+    <form [formGroup] = "billForm" (ngSubmit)="submit()">
+      <div class="form-group">
+        <label>Numéro de Facture</label>
+        <input type="text" formControlName="billNumber" placeholder="Ex: FAC-2026-001">
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Date d'émission</label>
+          <input type="date" formControlName="issueDate">
+        </div>
+        <div class="form-group">
+          <label>Date d'échéance</label>
+          <input type="date" formControlName="dueDate">
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Montant Total (DT)</label>
+          <input type="number" formControlName="totalAmount">
+        </div>
+        <div class="form-group">
+          <label>Avance Payée (DT)</label>
+          <input type="number" formControlName="amountPaid">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" (click)="close.emit()">Annuler</button>
+        <button type="submit" class="btn-primary" [disabled]="billForm.invalid">Enregistrer la Facture</button>
+      </div>
+    </form>
+  </div>
+</div>
