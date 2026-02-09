@@ -2,19 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Supplier } from '../../../core/models/supplier.model';
 import { SupplierService } from '../../../core/services/supplier.service';
+import { AddSupplierModalComponent } from '../add-supplier-modal/add-supplier-modal.component'; 
 import { AddBillModalComponent } from "../add-bill-modal/add-bill-modal.component";
 import { ButtonComponent } from "../../../shared/components/button/button.component";
 
 @Component({
   selector: 'app-supplier-list',
   standalone: true,
-  imports: [CommonModule, AddBillModalComponent, ButtonComponent],
+  imports: [CommonModule, AddBillModalComponent, AddSupplierModalComponent, ButtonComponent], 
   templateUrl: './supplier-list.component.html',
   styleUrl: './supplier-list.component.scss'
 })
 export class SuppliersListComponent implements OnInit {
   suppliers: Supplier[] = [];
   selectedSupplier: Supplier | null = null;
+  
+  isCreateModalOpen = false; 
 
   constructor(private supplierService: SupplierService) {}
 
@@ -29,17 +32,23 @@ export class SuppliersListComponent implements OnInit {
     });
   }
 
+ 
+  openCreateSupplier() {
+    this.isCreateModalOpen = true; 
+  }
+
+  
+  onSupplierAdded() {
+    this.isCreateModalOpen = false; // Close the modal
+    this.loadSuppliers(); // Refresh the list to show the new supplier
+  }
+
   openAddBill(supplier: Supplier) {
-    console.log('Opening Modal for:', supplier.companyName);
     this.selectedSupplier = supplier;
   }
 
   onBillAdded() {
-    this.loadSuppliers(); // Refresh table data
-    this.selectedSupplier = null; // Close modal
-  }
-
-  openCreateSupplier() {
-    alert("Prochaine étape : Création du fournisseur !");
+    this.loadSuppliers();
+    this.selectedSupplier = null;
   }
 }

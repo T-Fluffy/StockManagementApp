@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   db:
     image: postgres:16-alpine
@@ -19,39 +21,37 @@ services:
       - stock-network
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: mcr.microsoft.com/dotnet/sdk:8.0 
     container_name: stock_backend
+    working_dir: /app
     ports:
       - "5000:8080"
     environment:
-      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=StockManagementDb;Username=postgres;Password=YourStrongPassword123!
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:8080 
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=StockManagementDb;Username=postgres;Password=YourStrongPassword123!
+    volumes:
+      - ./backend:/app
+    # Force it to listen on 0.0.0.0 so we can see it from the browser
+    command: dotnet watch run --non-interactive --urls "http://0.0.0.0:8080"
     depends_on:
       db:
         condition: service_healthy
-    # Adding volume here allows hot-reload for .NET if using 'dotnet watch'
-    volumes:
-      - ./backend:/app
-      - /app/bin
-      - /app/obj
     networks:
       - stock-network
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: node:20-alpine
     container_name: stock_frontend
+    working_dir: /app
     ports:
-      - "4200:4200" # Changed from 80 to 4200 for the Dev Server
-    # THE MAGIC PART:
+      - "4200:4200"
     volumes:
       - ./frontend:/app
       - /app/node_modules
-    # We change the command to run the dev server instead of Nginx
-    command: npx ng serve --host 0.0.0.0 --poll 2000
+    # Run npm install first to make sure 'ng' exists in the volume
+    command: >
+      sh -c "npm install && npx ng serve --host 0.0.0.0 --port 4200 --poll 2000 --disable-host-check"
     networks:
       - stock-network
 

@@ -4,7 +4,7 @@
       <h1 class="page-title">Gestion des Fournisseurs</h1>
       <p class="page-subtitle">Suivez vos partenaires et l'état des dettes.</p>
     </div>
-    <app-button class="btn-primary" (click)="openCreateSupplier()">
+    <app-button class="btn-primary" (onClick)="openCreateSupplier()">
       ➕ Nouveau Fournisseur
     </app-button>
   </div>
@@ -40,7 +40,7 @@
               </div>
             </td>
             <td class="text-right">
-              <app-button class="btn-icon" (click)="openAddBill(s)" title="Ajouter Facture">➕</app-button>
+              <app-button class="btn-icon" (onClick)="openAddBill(s)" title="Ajouter Facture">➕</app-button>
             </td>
           </tr>
         </tbody>
@@ -52,7 +52,7 @@
         <div class="empty-icon">🏢</div>
         <h3>Aucun fournisseur</h3>
         <p>Commencez par ajouter un partenaire.</p>
-        <app-button class="btn-secondary" (click)="openCreateSupplier()">Ajouter</app-button>
+        <app-button class="btn-secondary" (onClick)="openCreateSupplier()">Ajouter</app-button>
       </div>
     </ng-template>
   </div>
@@ -65,3 +65,9 @@
   (close)="selectedSupplier = null"
   (billAdded)="onBillAdded()">
 </app-add-bill-modal>
+
+<app-add-supplier-modal
+  *ngIf="isCreateModalOpen" 
+  (close)="isCreateModalOpen = false"
+  (supplierAdded)="onSupplierAdded()">
+</app-add-supplier-modal>
