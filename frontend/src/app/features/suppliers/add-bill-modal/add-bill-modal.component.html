@@ -1,8 +1,8 @@
-<div class="modal-backdrop" (click)="close.emit()">
-  <div class="modal-content" (click)="$event.stopPropagation()">
+<div class="modal-backdrop" (onClick)="close.emit()">
+  <div class="modal-content" (onClick)="$event.stopPropagation()">
     <div class="modal-header">
+      <app-button class="close-btn" (onClick)="close.emit()">&times;</app-button>
       <h3>Ajouter une Facture - {{ supplierName }}</h3>
-      <button class="close-btn" (click)="close.emit()">&times;</button>
     </div>
 
     <form [formGroup] = "billForm" (ngSubmit)="submit()">
@@ -34,8 +34,8 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn-secondary" (click)="close.emit()">Annuler</button>
-        <button type="submit" class="btn-primary" [disabled]="billForm.invalid">Enregistrer la Facture</button>
+        <app-button (onClick)="close.emit()">Annuler</app-button>
+        <app-button type="submit" [disabled]="billForm.invalid">Enregistrer la Facture</app-button>
       </div>
     </form>
   </div>

@@ -1,3 +1,7 @@
-<button [type]="type" [class]="'btn ' + variant" (click)="handleClick($event)">
+<button 
+      [type]="type" 
+      [class]="'btn ' + variant" 
+      [disabled]="disabled"
+      (click)="handleClick($event)">
       <ng-content></ng-content>
 </button>

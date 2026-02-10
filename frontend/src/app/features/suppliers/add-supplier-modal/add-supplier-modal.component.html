@@ -1,5 +1,5 @@
-<div class="modal-backdrop" (click)="close.emit()">
-  <div class="modal-content" (click)="$event.stopPropagation()">
+<div class="modal-backdrop" (onClick)="close.emit()">
+  <div class="modal-content" (onClick)="$event.stopPropagation()">
     <div class="modal-header">
       <h3>Nouveau Fournisseur</h3>
       <app-button class="close-btn" (onClick)="close.emit()">&times;</app-button>
