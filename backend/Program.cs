@@ -44,7 +44,10 @@ builder.Services.AddAuthentication(options => {
 // 4. CORS
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowAngular", policy => {
-        policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+        policy.WithOrigins("http://localhost:4200", "http://127.0.0.1:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
     });
 });
 
@@ -61,12 +64,14 @@ using (var scope = app.Services.CreateScope()) {
         var context = services.GetRequiredService<ApplicationDbContext>();
         context.Database.Migrate(); 
 
-        // SEED ROLES: We need to make sure "Admin" and "User" exist in the DB
         var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
         string[] roleNames = { "Admin", "User" };
+        
         foreach (var roleName in roleNames) {
-            if (!roleManager.RoleExistsAsync(roleName).Result) {
-                roleManager.CreateAsync(new IdentityRole(roleName)).Wait();
+            // FIX: Ensure you are awaiting the Task or checking the Result correctly
+            var roleExist = roleManager.RoleExistsAsync(roleName).GetAwaiter().GetResult();
+            if (!roleExist) {
+                roleManager.CreateAsync(new IdentityRole(roleName)).GetAwaiter().GetResult();
             }
         }
     }
@@ -82,10 +87,8 @@ if (app.Environment.IsDevelopment()) {
 }
 
 app.UseCors("AllowAngular");
-
 // CRITICAL ORDER: Authenticate (Who are you?) then Authorize (What can you do?)
 app.UseAuthentication(); 
 app.UseAuthorization();
-
 app.MapControllers();
 app.Run();

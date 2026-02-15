@@ -19,6 +19,7 @@ public class SuppliersController : ControllerBase
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public async Task<ActionResult<IEnumerable<Supplier>>> GetSuppliers()
     {
         return await _context.Suppliers.Include(s => s.Bills).ToListAsync();
