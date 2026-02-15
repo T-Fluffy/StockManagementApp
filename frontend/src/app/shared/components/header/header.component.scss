@@ -80,9 +80,14 @@
   align-items: center;
   gap: 10px;
   background: #f8fafc;
-  padding: 4px 12px 4px 4px;
+  padding: 4px 6px 4px 4px; // Reduced right padding
   border-radius: 20px;
   border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: #cbd5e1;
+  }
   
   .avatar {
     width: 28px;
@@ -95,6 +100,56 @@
     justify-content: center;
     font-size: 0.8rem;
     font-weight: bold;
+    box-shadow: 0 2px 4px rgba(79, 70, 229, 0.2);
   }
-  .name { font-size: 0.85rem; font-weight: 600; color: #334155; }
+
+  .name { 
+    font-size: 0.85rem; 
+    font-weight: 600; 
+    color: #334155;
+    margin-right: 4px;
+  }
+
+  // The New Logout Button Design
+  .logout-btn {
+    background: transparent;
+    border: none;
+    border-left: 1px solid #e2e8f0; // Subtle separator
+    padding: 2px 2px 2px 8px;
+    margin-left: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: #94a3b8;
+    transition: all 0.2s ease;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover {
+      color: #ef4444; // Soft red on hover
+      transform: translateX(2px); // Tiny "exit" animation
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+.login-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #4f46e5;
+  text-decoration: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  background: #eef2ff;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #4f46e5;
+    color: white;
+  }
 }
