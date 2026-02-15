@@ -1,75 +1,86 @@
-# Stock Management Application
+# 📦 StockPro - Enterprise Stock Management Solution
 
-![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![Angular 18+](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
 ![.NET 8](https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![ASP.NET Core Identity](https://img.shields.io/badge/Identity-Security-green?style=for-the-badge)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
-A full-stack stock management solution featuring an Angular frontend, a .NET 8 Web API backend, and a PostgreSQL database, all orchestrated with Docker Compose.
-
-![Stock Management App](social-preview.png)
+StockPro is a modern, full-stack inventory management system built for speed and security. It features a sleek, purple-themed UI, robust JWT authentication, and a scalable containerized architecture.
 
 ---
 
-## 📂 Project Structure
+## ✨ Key Features
 
-* **`/backend`**: ASP.NET Core 8 Web API.
-    * Uses Entity Framework Core with Npgsql.
-    * Features automatic database migrations on startup.
-    * Swagger UI for API testing and documentation.
-* **`/frontend`**: Angular 17/18+ single-page application.
-    * Modular architecture.
-    * Configured for production builds using Nginx in Docker.
-* **`docker-compose.yml`**: Orchestrates the database, backend, and frontend containers.
+* **🔐 Secure Authentication**: Full Login/Register flow powered by ASP.NET Identity and JWT (JSON Web Tokens).
+* **🎨 Premium UI**: Modern responsive design using Angular Standalone components and SCSS.
+* **📊 Real-time Dashboard**: Dynamic inventory tracking and supplier management.
+* **⚡ Modern Stack**: .NET 8 Web API with Entity Framework Core (PostgreSQL).
+* **🐳 Containerized**: One-click deployment using Docker Compose with built-in Nginx reverse proxy.
 
 ---
 
-## 🚀 Quick Start (Docker)
+## 📂 Project Architecture
 
-To get the entire stack up and running with a single command:
 
+
+### 🖥 Frontend (Angular)
+- **Standalone Components**: No more bulky NgModules.
+- **Interceptors**: Automatic JWT injection into HTTP headers.
+- **Guards**: Protected routes to prevent unauthorized access.
+- **Styling**: Modular SCSS with a custom purple/indigo design system.
+
+### ⚙️ Backend (.NET 8)
+- **Clean Architecture**: Organized by Controllers, Services, and Models.
+- **Identity System**: Handles user registration, password hashing, and role management.
+- **Migrations**: Automatic PostgreSQL schema updates on container startup.
+
+---
+
+## 🚀 Installation & Setup
+
+### Prerequisites
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed.
+
+### Quick Start
 1.  **Clone the repository:**
     ```bash
     git clone <your-repo-url>
     cd StockManagementApp
     ```
 
-2.  **Launch the containers:**
+2.  **Launch the stack:**
     ```bash
     docker-compose up -d --build
     ```
 
-3.  **Access the applications:**
-    * **Frontend:** [http://localhost:4200](http://localhost:4200)
-    * **Backend API:** [http://localhost:5000](http://localhost:5000)
-    * **Swagger UI:** [http://localhost:5000/swagger](http://localhost:5000/swagger)
+3.  **Access points:**
+    - **App**: [http://localhost:4200](http://localhost:4200)
+    - **API Docs (Swagger)**: [http://localhost:5000/swagger](http://localhost:5000/swagger)
 
 ---
 
-## 🛠 Features
+## 🛠 Tech Stack Details
 
-* **Database Persistence**: Uses Docker volumes to ensure data survives container restarts.
-* **CORS Configuration**: Pre-configured to allow communication between the Angular frontend and the .NET API.
-* **Health Checks**: The backend waits for the PostgreSQL database to be fully "Healthy" before attempting to run migrations.
-
----
-
-## ⚙️ Environment Variables
-
-The project is configured out-of-the-box in `docker-compose.yml`. Key settings include:
-
-| Service | Variable | Purpose |
+| Layer | Technology | Key Libraries |
 | :--- | :--- | :--- |
-| **db** | `POSTGRES_DB` | Name of the database |
-| **backend** | `ConnectionStrings__DefaultConnection` | Database connection string |
-| **frontend** | `EXPOSE` | Port 80 (Internal Nginx) |
+| **Frontend** | Angular 18 | `rxjs`, `jwt-decode`, `SCSS` |
+| **Backend** | .NET 8 Web API | `EF Core`, `Npgsql`, `Identity.EntityFrameworkCore` |
+| **Database** | PostgreSQL 16 | Docker Volumes for persistence |
+| **DevOps** | Docker | `docker-compose`, `Nginx` |
 
 ---
 
-## 🏗 Development Notes
+## 🏗 Development Workflow
 
-If you make changes to the C# code or the Angular project, rebuild the specific service:
-```bash
-docker-compose up -d --build backend
-# or
-docker-compose up -d --build frontend
+### Useful Commands
+- **Check Logs**: `docker-compose logs -f`
+- **Stop System**: `docker-compose down`
+- **Reset Database**: `docker-compose down -v` (removes data)
+
+### Environment Configuration
+The application is pre-configured to allow CORS between the frontend container (`:4200`) and the backend API (`:5000`). For production, update the `environment` section in `docker-compose.yml`.
+
+---
+
+## 📝 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
