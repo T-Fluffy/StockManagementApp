@@ -3,7 +3,7 @@ version: '3.8'
 services:
   db:
     image: postgres:16-alpine
-    container_name: stock_postgres_db
+    container_name: stockPro_postgres_db
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=YourStrongPassword123!
@@ -22,18 +22,18 @@ services:
 
   backend:
     image: mcr.microsoft.com/dotnet/sdk:8.0 
-    container_name: stock_backend
+    container_name: stockPro_backend
     working_dir: /app
     ports:
       - "5000:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:8080 
+      # This tells .NET exactly where the DB is in the Docker network
       - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=StockManagementDb;Username=postgres;Password=YourStrongPassword123!
     volumes:
       - ./backend:/app
-    # Force it to listen on 0.0.0.0 so we can see it from the browser
-    command: dotnet watch run --non-interactive --urls "http://0.0.0.0:8080"
+    command: dotnet watch run --project StockManagement-Api.csproj --non-interactive --urls "http://0.0.0.0:8080"
     depends_on:
       db:
         condition: service_healthy
@@ -42,7 +42,7 @@ services:
 
   frontend:
     image: node:20-alpine
-    container_name: stock_frontend
+    container_name: stockPro_frontend
     working_dir: /app
     ports:
       - "4200:4200"
