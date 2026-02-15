@@ -2,14 +2,20 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router'; // Added RouterModule
 import { ButtonComponent } from "../../../shared/components/button/button.component";
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonComponent],
-  templateUrl: './register.component.html'
+  imports: [
+    CommonModule, 
+    FormsModule, 
+    ButtonComponent, 
+    RouterModule // Added for routerLink
+  ],
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'] // Link the scss
 })
 export class RegisterComponent {
   user = {
@@ -25,12 +31,14 @@ export class RegisterComponent {
   onRegister() {
     this.authService.register(this.user).subscribe({
       next: (res) => {
-        alert('Registration successful! Please login.');
+        alert('Inscription réussie ! Vous pouvez maintenant vous connecter.');
         this.router.navigate(['/login']);
       },
       error: (err) => {
         console.error('Registration failed', err);
-        alert('Error: ' + err.error?.[0]?.description || 'Check console');
+        // Better error handling for ASP.NET Identity errors
+        const errorMsg = err.error?.[0]?.description || 'Erreur lors de l\'inscription';
+        alert(errorMsg);
       }
     });
   }

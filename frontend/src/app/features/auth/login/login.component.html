@@ -1,15 +1,27 @@
 <div class="login-container">
-  <h2>Login to StockPro</h2>
-  <form (ngSubmit)="onLogin()">
-    <div>
-      <label>Email</label>
-      <input [(ngModel)]="credentials.email" name="email" type="email" required>
-    </div>
-    <div>
-      <label>Password</label>
-      <input [(ngModel)]="credentials.password" name="password" type="password" required>
-    </div>
-    <app-button type="submit">Sign In</app-button>
-  </form>
-  <p>Don't have an account? <a routerLink="/register">Register here</a></p>
+  <div class="login-card">
+    <h2>Bon retour !</h2>
+    <p class="subtitle">Veuillez vous connecter à votre compte StockPro</p>
+
+    <form (ngSubmit)="onLogin()">
+      <div class="form-group">
+        <label>Adresse Email</label>
+        <input [(ngModel)]="credentials.email" name="email" type="email" placeholder="nom@exemple.com" required>
+      </div>
+
+      <div class="form-group">
+        <label>Mot de passe</label>
+        <input [(ngModel)]="credentials.password" name="password" type="password" placeholder="••••••••" required>
+      </div>
+
+      <app-button type="submit" class="submit-btn">
+        Se connecter
+      </app-button>
+    </form>
+
+    <p class="register-footer">
+      Vous n'avez pas de compte ? 
+      <a routerLink="/register">Créer un compte</a>
+    </p>
+  </div>
 </div>
