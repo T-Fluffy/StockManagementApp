@@ -1,17 +1,37 @@
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { SystemNotifComponent } from '../system-notif/system-notif.component';
+import { RouterModule, Router } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
+import { SystemNotifComponent } from "../system-notif/system-notif.component";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive,SystemNotifComponent],
+  imports: [CommonModule, RouterModule, SystemNotifComponent],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
-  currentDate = new Date();
-  userName = "Admin Stock";
-  unreadCount = 3; // Example: we can pass this to the bell
+export class HeaderComponent implements OnInit {
+  userName: string = 'Utilisateur'; // You can later decode this from the JWT token
+  unreadCount: number = 5;
+  currentDate: Date = new Date();
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+  this.authService.isLoggedIn$.subscribe(isLoggedIn => {
+    if (isLoggedIn) {
+      this.userName = this.authService.getUserDisplayName();
+    }
+  });
+}
+
+  onLogout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.authService.getToken();
+  }
 }

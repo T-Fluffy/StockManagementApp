@@ -5,7 +5,7 @@
       <span class="logo-text">StockPro <small>v1.0</small></span>
     </div>
     
-    <nav class="main-nav">
+    <nav class="main-nav" *ngIf="isLoggedIn()">
       <a routerLink="/dashboard" routerLinkActive="active">Tableau de Bord</a>
       <a routerLink="/products" routerLinkActive="active">Inventaire</a>
       <a routerLink="/suppliers" routerLinkActive="active">Fournisseurs</a>
@@ -22,9 +22,16 @@
     
     <app-system-notif [count]="unreadCount"></app-system-notif>
     
-    <div class="user-pill">
+    <div class="user-pill" *ngIf="isLoggedIn()">
       <div class="avatar">{{ userName.charAt(0) }}</div>
       <span class="name">{{ userName }}</span>
+      <button class="logout-btn" (click)="onLogout()" title="Déconnexion">
+         <i class="logout-icon"></i> 🚪
+      </button>
+    </div>
+
+    <div *ngIf="!isLoggedIn()">
+      <a routerLink="/login" class="login-link">Se connecter</a>
     </div>
   </div>
 </header>
