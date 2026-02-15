@@ -33,6 +33,8 @@ services:
       - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=StockManagementDb;Username=postgres;Password=YourStrongPassword123!
     volumes:
       - ./backend:/app
+      - /app/obj/
+      - /app/bin/
     command: dotnet watch run --project StockManagement-Api.csproj --non-interactive --urls "http://0.0.0.0:8080"
     depends_on:
       db:
