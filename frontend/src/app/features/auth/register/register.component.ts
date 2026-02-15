@@ -18,6 +18,7 @@ import { ButtonComponent } from "../../../shared/components/button/button.compon
   styleUrls: ['./register.component.scss'] // Link the scss
 })
 export class RegisterComponent {
+  showPassword = false;
   user = {
     firstName: '',
     lastName: '',

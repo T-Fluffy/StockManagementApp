@@ -18,6 +18,7 @@ import { ButtonComponent } from "../../../shared/components/button/button.compon
   styleUrls: ['./login.component.scss'] // Ensure this is .scss
 })
 export class LoginComponent {
+  showPassword = false;
   credentials = {
     email: '',
     password: ''
@@ -29,7 +30,7 @@ export class LoginComponent {
     this.authService.login(this.credentials).subscribe({
       next: (res) => {
         console.log('Login success!', res);
-        this.router.navigate(['/dashboard']); // Redirect to dashboard
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         console.error('Login failed', err);
